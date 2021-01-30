@@ -127,6 +127,15 @@
     $('[data-attr="power"]').click(function (event) {
         ws.send(`{"event":"set state","args":["${$(this).data("action")}"]}`);
     });
+
+    $('.terminal_input--input').on('keyup', function (e) {
+        if (e.which === 27) $(this).val('')
+
+        if (e.which === 13) {
+            ws.send(JSON.stringify({"event":"send command","args":[$(this).val()]})); 
+            $(this).val('');
+        }
+    });
     {/literal}
 </script>
 <script>
