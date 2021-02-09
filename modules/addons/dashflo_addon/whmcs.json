@@ -1,0 +1,33 @@
+{
+  "schema": "1.0",
+  "type": "whmcs-servers",
+  "name": "Dashflo",
+  "license": "proprietary",
+  "category": "provisioning",
+  "description": {
+    "name": "Dashflo Reseller",
+    "tagline": "Effortlessly resell Dashflo hosting services to your customers.",
+    "long": "Dashflo Reseller allows you to offer hosting services to your customers without having to worry about managing the backend servers, scaling with demand, worrying about security/DDoS attacks, and having to develop new features. It allows you to focus on marketing, sales and support while Dashflo takes care of the rest for you.",
+    "features": [
+      "Pay only for the resoures you allocate",
+      "Reduce time managing servers",
+      "Fully automated ordering process",
+      "Powerful high-performance servers"
+    ]
+  },
+  "logo": {
+    "filename": "logo.png"
+  },
+  "support": {
+    "homepage": "https://dashflo.net/",
+    "learn_more": "https://dashflo.net/reseller",
+    "support_url": "https://dashflo.net/tickets/new",
+    "docs_url": "https://dashflo.net/reseller"
+  },
+  "authors": [
+    {
+      "name": "Dashflo",
+      "homepage": "https://dashflo.net/"
+    }
+  ]
+}

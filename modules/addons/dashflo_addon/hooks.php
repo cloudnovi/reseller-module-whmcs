@@ -7,9 +7,13 @@
  * @package    Dashflo Reseller Module for WHMCS
  * @author     Dashflo Ltd <support@dashflo.net>
  * @copyright  2018-2021 Dashflo Ltd
- * @version:   2.0.1
+ * @version:   2.1.0
  * @link       https://dashflo.net/reseller
  */
+
+if (!defined("WHMCS")) {
+    die("This file cannot be accessed directly");
+}
 
 require_once __DIR__ . "../../../servers/dashflo/lib/http.php";
 
@@ -38,16 +42,16 @@ class DashfloResellerVersionWidget extends \WHMCS\Module\AbstractWidget
      */
     public function getData()
     {
-        $version = dashflo_Api("GET", "/reseller/module/whmcs");
+        $version = dashflo_Api("GET", "/reseller/module/whmcs")["latest"];
 
-        if ($version[latest] === dashflo_version()) {
+        if (version_compare(dashflo_version(), $version) >= 0) {
             $widget = [
                 "message" => "Running latest version",
                 "bg" => "success",
             ];
         } else {
             $widget = [
-                "message" => "Upgrade available: v" . $version[latest],
+                "message" => "Upgrade available: v" . $version,
                 "bg" => "danger",
             ];
         }
@@ -69,10 +73,10 @@ class DashfloResellerVersionWidget extends \WHMCS\Module\AbstractWidget
     public function generateOutput($data)
     {
         return <<<EOF
-<div class="widget-content-padded bg-{$data[bg]} text-white" onclick="window.location.href = 'https://dashflo.net/reseller/';" style="cursor:pointer">
+<div class="widget-content-padded bg-{$data["bg"]} text-white" onclick="window.location.href = 'addonmodules.php?module=dashflo_addon';" style="cursor:pointer">
     <div class="row">
         <div class="col-xs-8">
-            <b>{$data[message]}</b>
+            <b>{$data["message"]}</b>
         </div>
         <div class="col-xs-4 text-right">
             <span class="badge" data-toggle="tooltip" title="Current Version">{$data["version"]}</span>

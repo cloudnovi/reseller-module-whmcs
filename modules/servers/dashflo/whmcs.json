@@ -1,0 +1,27 @@
+{
+  "schema": "1.0",
+  "type": "whmcs-servers",
+  "name": "Dashflo",
+  "license": "proprietary",
+  "category": "provisioning",
+  "description": {
+    "name": "Dashflo Integration Module",
+    "tagline": "Provisioning module to integrate Dashflo Reseller with WHMCS.",
+    "long": "This module integrates Dashflo Reseller with WHMCS."
+  },
+  "logo": {
+    "filename": "logo.png"
+  },
+  "support": {
+    "homepage": "https://dashflo.net/",
+    "learn_more": "https://dashflo.net/reseller",
+    "support_url": "https://dashflo.net/tickets/new",
+    "docs_url": "https://dashflo.net/reseller"
+  },
+  "authors": [
+    {
+      "name": "Dashflo",
+      "homepage": "https://dashflo.net/"
+    }
+  ]
+}

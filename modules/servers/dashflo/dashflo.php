@@ -7,7 +7,7 @@
  * @package    Dashflo Reseller Module for WHMCS
  * @author     Dashflo Ltd <support@dashflo.net>
  * @copyright  2018-2021 Dashflo Ltd
- * @version:   2.0.1
+ * @version:   2.1.0
  * @link       https://dashflo.net/reseller
  */
 
@@ -250,13 +250,16 @@ function dashflo_AdminServicesTabFields(array $params)
             ($service[plan][reseller] ? "(Reseller Compatible)" : "(Not Reseller Compatible)");
         $renews = fromMySQLDate($service["next_due_at"]);
         $started = fromMySQLDate($service["started_at"]);
+        $manage =
+            "<a href='https://dashflo.net/service/" . $service["id"] . "' class='btn btn-primary' target='_blank'>View at Dashflo</a>";
 
         return [
-            "Status" => htmlspecialchars(ucfirst($service[status])),
-            "Dedicated IP" => htmlspecialchars($service[dedicated_ip]) ?: "N/A",
+            "" => $manage,
+            "Status" => htmlspecialchars(ucfirst($service["status"])),
+            "Dedicated IP" => htmlspecialchars($service["dedicated_ip"]) ?: "N/A",
             "Plan" => htmlspecialchars($plan),
-            "Billing Cycle" => htmlspecialchars(ucfirst($service[billing_cycle])),
-            "Recurring Amount" => htmlspecialchars($service[recurring_amount]),
+            "Billing Cycle" => htmlspecialchars(ucfirst($service["billing_cycle"])),
+            "Recurring Amount" => htmlspecialchars($service["recurring_amount"]),
             "Next Due" => $renews,
             "Started At" => $started,
         ];
