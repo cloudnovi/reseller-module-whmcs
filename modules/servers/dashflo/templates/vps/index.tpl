@@ -4,7 +4,7 @@
         <b>IP: </b> {$dashflo.service.dedicated_ip}
     </div>
     <div class="col-4 col-xs-4">
-        <b>Username: </b> {$dashflo.service.password}
+        <b>Username: </b> {$dashflo.service.username}
     </div>
     <div class="col-4 col-xs-4">
         <b>Password: </b>
