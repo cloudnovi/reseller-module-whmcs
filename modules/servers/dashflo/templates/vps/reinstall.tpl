@@ -52,23 +52,21 @@
     $('[data-action="reinstall"]').click(function () {
         $(".action").addClass("disabled");
 
-        $.get("{$systemurl}clientarea.php", {
+        const requestParams = new URLSearchParams({
             action: "productdetails",
             id: "{$serviceid}",
             modop: "custom",
             a: "logic",
             call: "Reinstall",
             logic_Template: $(this).data("id"),
-        })
-            .done(() => {
-                $("#reinstall").modal("show");
-            })
-            .fail(() => {
-                alert("{$LANG.clientareaerroroccured}");
-            })
-            .complete(() => {
-                $(".action").removeClass("disabled");
-            });
+        });
+
+        fetch("clientarea.php?" + requestParams).then((response) => {
+            if (response.status !== 204) alert("{$LANG.clientareaerroroccured}");
+
+            $("#reinstall").modal("show")
+            $(".action").removeClass("disabled")
+        });
     });
 
     $("#reinstall").on("hidden.bs.modal", function () {

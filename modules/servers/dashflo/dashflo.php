@@ -7,7 +7,7 @@
  * @package    Dashflo Reseller Module for WHMCS
  * @author     Dashflo Ltd <support@dashflo.net>
  * @copyright  2018-2021 Dashflo Ltd
- * @version:   2.1.1
+ * @version:   2.2.0
  * @link       https://dashflo.net/reseller
  */
 
@@ -18,6 +18,7 @@ if (!defined("WHMCS")) {
 require_once __DIR__ . "/lib/http.php";
 
 require_once __DIR__ . "/logic/databases.php";
+require_once __DIR__ . "/logic/firewall.php";
 require_once __DIR__ . "/logic/power.php";
 require_once __DIR__ . "/logic/reinstall.php";
 
@@ -418,6 +419,13 @@ function dashflo_Management($params)
 
                 $information[service] = $service;
                 $information[templates] = dashflo_Api("GET", "/manage/" . $id . "/templates");
+            } elseif ($requestedAction === "firewall") {
+                // Page: files
+                $templateFile = "vps/firewall";
+                $templateName = "Firewall";
+
+                $information[service] = $service;
+                $information[options] = dashflo_Api("GET", "/manage/" . $id . "/firewall/options");
             } else {
                 return "Unknown page";
             }
@@ -469,6 +477,8 @@ function dashflo_Logic($params)
             dashfloLogic_DatabasesReset($id, $params);
         } elseif ($requestedAction === "DatabasesDelete") {
             dashfloLogic_DatabasesDelete($id, $params);
+        } elseif ($requestedAction === "FirewallOptions") {
+            dashfloLogic_FirewallOptions($id, $params);
         } elseif ($requestedAction === "Power") {
             dashfloLogic_Power($id, $params);
         } elseif ($requestedAction === "Reinstall") {
@@ -494,4 +504,11 @@ function dashflo_ClientAreaAllowedFunctions()
         "management" => "management",
         "logic" => "logic",
     ];
+}
+
+
+
+function dashflo_ChangePassword()
+{
+    return "success";
 }

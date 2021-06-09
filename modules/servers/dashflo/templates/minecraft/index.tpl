@@ -94,7 +94,7 @@
     }
     
     const pushToTerminal = (string) => {
-        if (!string.includes(atob("W1B0ZXJvZGFjdHlsIERhZW1vbl0=")))
+        if (!string.includes(atob("W1B0ZXJvZGFjdHlsIERhZW1vbl0=")) && !string.includes(atob("RGFzaGZsbw==")))
             $('#terminal').append('<div class="cmd">' + ansi_up.ansi_to_html(string + '\u001b[0m') + '</div>');
     }
 

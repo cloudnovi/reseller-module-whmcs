@@ -15,15 +15,18 @@ if (!defined("WHMCS")) {
     die("This file cannot be accessed directly");
 }
 
-function dashfloLogic_Reinstall($id, $params)
+function dashfloLogic_FirewallOptions($id, $params)
 {
+    $input = $_REQUEST["logic_Input"];
+    $output = $_REQUEST["logic_Output"];
+    
     $body = [
-        "template" => $_REQUEST["logic_Template"],
-        "password" => $params["password"],
+        "input" => $input,
+        "output" => $output,
     ];
 
     try {
-        dashflo_Api("POST", "/manage/" . $id . "/templates/install", $body);
+        dashflo_Api("POST", "/manage/" . $id . "/firewall/options", $body);
     } catch (Exception $e) {
         $status = 500;
     }

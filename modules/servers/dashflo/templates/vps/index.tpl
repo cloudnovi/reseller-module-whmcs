@@ -8,7 +8,7 @@
     </div>
     <div class="col-4 col-xs-4">
         <b>Password: </b>
-        <code class="toggle-display" style="cursor:pointer">
+        <code class="toggle-password" style="cursor:pointer">
             &bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;
         </code>
         <code class="hidden d-none" data-attr="set-password">
@@ -20,14 +20,16 @@
 <hr class="mt-3 mb-4">
 
 <!-- VPS terminal -->
-<ul class="nav nav-tabs nav-pills nav-justified mb-3" id="pills-tab" role="tablist">
-  <li class="nav-item active">
-    <a class="nav-link active" id="pills-profile-tab" data-toggle="pill" href="#xtermjs" role="tab" >Terminal
+<ul class="nav nav-tabs nav-pills nav-justified border-0 mb-3" id="pills-tab" role="tablist">
+  <li class="nav-item active mr-1">
+    <a class="nav-link active" id="pills-profile-tab" data-toggle="pill" href="#xtermjs" role="tab">
+        Terminal
         <span class="badge badge-primary" onclick="popoutXtermjs()" data-toggle="tooltip" title="Open in new tab"><i class="fas fa-expand-arrows-alt"></i></span>
     </a>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#novnc" role="tab">Graphical
+  <li class="nav-item ml-1">
+    <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#novnc" role="tab">
+        Monitor
         <span class="badge badge-primary my-auto" onclick="popoutNovnc()" data-toggle="tooltip" title="Open in new tab"><i class="fas fa-expand-arrows-alt"></i></span>
     </a>
   </li>
@@ -40,7 +42,7 @@
   </div>
   <div id="novnc" class="tab-pane w-100 fade in">
     <div class="panel-body text-left">
-        <iframe style="border-radius: 3px;" height="350px" width="100%" frameBorder="0" id="novncTerminal" class="terminal" src="{$dashflo.console.novnc.url}">Failed to load console.</iframe>
+        <iframe style="border-radius: 3px;" height="350px" width="100%" frameBorder="0" id="novncTerminal" class="terminal" src="{$dashflo.console.novnc.url}" allowfullscreen>Failed to load console.</iframe>
     </div>
   </div>
 </div>
@@ -71,6 +73,9 @@
     <div class="col-sm-6 col-md-4 mb-2 mb-md-0">
         <a href="clientarea.php?action=productdetails&id={$serviceid}&modop=custom&a=management&mng=reinstall" class="btn btn-block btn-primary py-3"><i class="fas fa-retweet mr-2"></i> Reinstall</a>
     </div>
+    <div class="col-sm-6 col-md-4 mb-2 mb-md-0">
+        <a href="clientarea.php?action=productdetails&id={$serviceid}&modop=custom&a=management&mng=firewall" class="btn btn-block btn-primary py-3"><i class="fas fa-fire mr-2"></i> Firewall</a>
+    </div>
 </div>
 
 <!-- Scripts -->
@@ -90,30 +95,27 @@
 
     $('[data-attr="power"]').click(function () {
         $(".power").addClass("disabled");
-        
-        $.get("{$systemurl}clientarea.php", {
+
+        const requestParams = new URLSearchParams({
             action: "productdetails",
             id: "{$serviceid}",
             modop: "custom",
             a: "logic",
             call: "Power",
             logic_Signal: $(this).data("action"),
-        })
-            .done(() => {
-                console.info("Reloading terminals...");
-                $(".terminal").attr("src", function (i, val) {
-                    return val;
-                });
-            })
-            .fail(() => {
-                alert("{$LANG.clientareaerroroccured}");
-            })
-            .complete(() => {
-                $(".power").removeClass("disabled");
+        });
+
+        fetch("clientarea.php?" + requestParams).then((response) => {
+            if (response.status !== 204) alert("{$LANG.clientareaerroroccured}");
+            
+            $(".terminal").attr("src", function (i, val) {
+                return val;
             });
+            $(".power").removeClass("disabled")
+        });
     });
 
-    $(".toggle-display").on("click", function () {
+    $(".toggle-password").on("click", function () {
         $(this).parent().find('code[data-attr="set-password"]').removeClass("hidden d-none");
         $(this).hide();
     });
